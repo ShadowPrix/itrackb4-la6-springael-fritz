@@ -15,11 +15,11 @@
         </tr>
  
         @foreach ($movies as $movie)
-            <tr>
-                <td>{{ $movie['title'] }}</td>
-                <td>{{ $movie['genre'] }}</td>
-                <td>{{ $movie['rating'] }}</td>
-            </tr>
+         <tr>
+            <td><a href="{{ route('movies.show', $movie['id']) }}">{{ $movie['title'] }}</a></td>
+            <td>{{ $movie['genre'] }}</td>
+            <td>{{ $movie['rating'] }}</td>
+         </tr>
         @endforeach
     </table>
 </body>
