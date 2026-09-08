@@ -12,7 +12,7 @@ class ProductsController extends Controller
     $products = [
         ['name' => 'Keyboard', 'price' => 1200, 'stock' => 10],
         ['name' => 'Mouse', 'price' => 500, 'stock' => 18],
-        ['name' => 'Laptop', 'price' => 20,000, 'stock' => 9],
+        ['name' => 'Laptop', 'price' => 20000, 'stock' => 9],
         ['name' => 'Type C Charger', 'price' => 300, 'stock' => 38],
         ['name' => 'Type B Charger', 'price' => 310, 'stock' => 20],
     ];
