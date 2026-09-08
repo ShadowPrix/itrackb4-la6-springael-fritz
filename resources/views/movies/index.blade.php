@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Movie List</title>
-</head>
-<body>
-    <h1>My Movie List</h1>
-    <p>Prepared by: Fritz C. Springael</p>
- 
-    <table border="1" cellpadding="8">
+@extends('layouts.app')
+
+@section('title', 'My Movie List')
+
+@section('content')
+    <table class="table table-striped">
         <tr>
             <th>Title</th>
             <th>Genre</th>
             <th>Rating</th>
         </tr>
- 
+
         @foreach ($movies as $movie)
          <tr>
             <td><a href="{{ route('movies.show', $movie['id']) }}">{{ $movie['title'] }}</a></td>
@@ -22,6 +18,4 @@
          </tr>
         @endforeach
     </table>
-</body>
-</html>
-
+@endsection

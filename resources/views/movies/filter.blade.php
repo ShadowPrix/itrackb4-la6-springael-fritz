@@ -1,34 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Filtered Movies</title>
-</head>
-<body>
-    <h1>Filtered Movies</h1>
+@extends('layouts.app')
 
-    <p>Prepared by: Fritz C. Springael</p>
+@section('title', 'Filtered Movies')
 
+@section('content')
     @if ($activeFilter === null)
         <p>Showing: All movies</p>
     @else
         <p>Showing: {{ $activeFilter }}</p>
     @endif
 
-    <table border="1" cellpadding="8">
+    <table class="table table-striped">
         <tr>
+            <th>#</th>
             <th>Title</th>
             <th>Genre</th>
             <th>Rating</th>
+            <th></th>
         </tr>
-        @foreach ($movies as $movie)
+        @forelse ($movies as $movie)
         <tr>
+            <td>{{ $loop->iteration }}</td>
             <td>{{ $movie['title'] }}</td>
             <td>{{ $movie['genre'] }}</td>
             <td>{{ $movie['rating'] }}</td>
+            @if ($movie['rating'] >= 9.0)
+                <td>⭐ Top Rated</td>
+            @else
+                <td></td>
+            @endif
         </tr>
-        @endforeach
+        @empty
+            <p>No movies match that filter.</p>
+        @endforelse
     </table>
 
-    <p><a href="{{ route('movies.index') }}">Back to list</a></p>
-</body>
-</html>
+    <p><a href="{{ route('movies.index') }}" class="btn btn-primary">Back to list</a></p>
+@endsection

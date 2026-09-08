@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ $movie['title'] }}</title>
-</head>
-<body>
-    <h1>{{ $movie['title'] }}</h1>
+@extends('layouts.app')
 
-    <p>Prepared by: Fritz C. Springael</p>
+@section('title', $movie['title'])
 
-    <table border="1" cellpadding="8">
+@section('content')
+    <table class="table table-striped">
         <tr>
             <th>Field</th>
             <th>Value</th>
@@ -27,6 +22,5 @@
         </tr>
     </table>
 
-    <p><a href="{{ route('movies.index') }}">Back to list</a></p>
-</body>
-</html>
+    <p><a href="{{ route('movies.index') }}" class="btn btn-primary">Back to list</a></p>
+@endsection
