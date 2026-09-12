@@ -18,39 +18,23 @@ class MovieController extends Controller
         ];
     }
 
-    public function featured()
-    {
-    $movies = $this->getMovies();
-    $movie = $movies[3]; // Harry Potter — your featured pick, change the 3 if you want a different one
-
-    return view('movies.show', ['movie' => $movie]);
-    }
-
-    public function filter($value = null)
-    {
-    $movies = $this->getMovies();
-
-    if ($value === null) {
-        $filtered = $movies;
-    } else {
-        $filtered = [];
-        foreach ($movies as $movie) {
-            if ($movie['genre'] === $value) {
-                $filtered[] = $movie;
-            }
-        }
-    }
-
-    return view('movies.filter', ['movies' => $filtered, 'activeFilter' => $value]);
-    }
-
     public function index()
     {
         $movies = $this->getMovies();
         return view('movies.index', ['movies' => $movies]);
     }
 
-    public function show($id)
+    public function create()
+    {
+        //
+    }
+
+    public function store(Request $request)
+    {
+        //
+    }
+
+    public function show(string $id)
     {
         $movies = $this->getMovies();
 
@@ -61,5 +45,46 @@ class MovieController extends Controller
         $movie = $movies[$id];
 
         return view('movies.show', ['movie' => $movie]);
+    }
+
+    public function edit(string $id)
+    {
+        //
+    }
+
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    public function featured()
+    {
+        $movies = $this->getMovies();
+        $movie = $movies[3]; // Harry Potter — your featured pick
+
+        return view('movies.show', ['movie' => $movie]);
+    }
+
+    public function filter($value = null)
+    {
+        $movies = $this->getMovies();
+
+        if ($value === null) {
+            $filtered = $movies;
+        } else {
+            $filtered = [];
+            foreach ($movies as $movie) {
+                if ($movie['genre'] === $value) {
+                    $filtered[] = $movie;
+                }
+            }
+        }
+
+        return view('movies.filter', ['movies' => $filtered, 'activeFilter' => $value]);
     }
 }
