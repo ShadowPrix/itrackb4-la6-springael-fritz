@@ -9,19 +9,34 @@ class MovieController extends Controller
     private function getMovies()
     {
         return [
-            1 => ['id' => 1, 'title' => 'Spiderman', 'genre' => 'Action', 'rating' => 9.1],
-            2 => ['id' => 2, 'title' => 'Gagamboy', 'genre' => 'Comedy', 'rating' => 8.5],
-            3 => ['id' => 3, 'title' => 'Harry Potter', 'genre' => 'Drama', 'rating' => 9.7],
-            4 => ['id' => 4, 'title' => 'Grown Ups', 'genre' => 'Comedy', 'rating' => 8.6],
-            5 => ['id' => 5, 'title' => 'Grown Ups 2', 'genre' => 'Comedy', 'rating' => 8.9],
-            6 => ['id' => 6, 'title' => 'Interstellar', 'genre' => 'Drama', 'rating' => 9.3],
+            1 => ['id' => 1, 'title' => 'Spiderman', 'genre' => 'Action', 'rating' => 9.1, 'year' => 2002],
+            2 => ['id' => 2, 'title' => 'Gagamboy', 'genre' => 'Comedy', 'rating' => 8.5, 'year' => 2010],
+            3 => ['id' => 3, 'title' => 'Harry Potter', 'genre' => 'Drama', 'rating' => 9.7, 'year' => 2001],
+            4 => ['id' => 4, 'title' => 'Grown Ups', 'genre' => 'Comedy', 'rating' => 8.6, 'year' => 2010],
+            5 => ['id' => 5, 'title' => 'Grown Ups 2', 'genre' => 'Comedy', 'rating' => 8.9, 'year' => 2014],
+            6 => ['id' => 6, 'title' => 'Interstellar', 'genre' => 'Drama', 'rating' => 9.3, 'year' => 2014],
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $genre = $request->query('genre', 'all');
+        $year = $request->query('year', 'all');
+
         $movies = $this->getMovies();
-        return view('movies.index', ['movies' => $movies]);
+
+        if ($genre !== 'all') {
+            $movies = array_filter($movies, fn($m) => $m['genre'] === $genre);
+        }
+        if ($year !== 'all') {
+            $movies = array_filter($movies, fn($m) => $m['year'] == $year);
+        }
+
+        return view('movies.index', [
+            'movies' => $movies,
+            'genre' => $genre,
+            'year' => $year,
+        ]);
     }
 
     public function create()
@@ -65,26 +80,8 @@ class MovieController extends Controller
     public function featured()
     {
         $movies = $this->getMovies();
-        $movie = $movies[3]; // Harry Potter — your featured pick
+        $movie = $movies[3];
 
         return view('movies.show', ['movie' => $movie]);
-    }
-
-    public function filter($value = null)
-    {
-        $movies = $this->getMovies();
-
-        if ($value === null) {
-            $filtered = $movies;
-        } else {
-            $filtered = [];
-            foreach ($movies as $movie) {
-                if ($movie['genre'] === $value) {
-                    $filtered[] = $movie;
-                }
-            }
-        }
-
-        return view('movies.filter', ['movies' => $filtered, 'activeFilter' => $value]);
     }
 }

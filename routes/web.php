@@ -15,6 +15,8 @@ Route::get('/whoami', function () {
 Route::get('/product', [ProductsController::class, 'index']);
 
 Route::get('/movies/featured', [MovieController::class, 'featured'])->name('movies.featured');
-Route::get('/movies/filter/{value?}', [MovieController::class, 'filter'])->name('movies.filter');
+Route::get('/movies/filter/{genre?}', function ($genre = null) {
+    return redirect()->route('movies.index', $genre ? ['genre' => $genre] : []);
+});
 
 Route::resource('movies', MovieController::class)->only(['index', 'show']);

@@ -22,6 +22,10 @@
                     <td>Rating</td>
                     <td>{{ $movie['rating'] }}</td>
                 </tr>
+                <tr>
+                    <td>Year</td>
+                    <td>{{ $movie['year'] }}</td>
+                </tr>
             </table>
         </div>
     </div>
