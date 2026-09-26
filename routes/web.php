@@ -15,6 +15,7 @@ Route::get('/whoami', function () {
 Route::get('/product', [ProductsController::class, 'index']);
 
 Route::get('/movies/featured', [MovieController::class, 'featured'])->name('movies.featured');
+// Old route-parameter filter — redirects to the new query-string version
 Route::get('/movies/filter/{genre?}', function ($genre = null) {
     return redirect()->route('movies.index', $genre ? ['genre' => $genre] : []);
 });
